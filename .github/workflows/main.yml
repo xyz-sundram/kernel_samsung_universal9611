@@ -9,11 +9,11 @@ jobs:
       - name: Install Dependencies
         run: sudo apt install -y bash git make libssl-dev curl bc pkg-config m4 libtool automake autoconf
       - name: Clone the repo
-        run: git clone --depth 1 -b upstream https://github.com/Gojikovi/kernel_samsung_universal9611.git && cd kernel_samsung_universal9611 && pwd
+        run: git clone --depth 1 -b upstream https://github.com/Gojikovi/kernel_samsung_universal9611.git && cd kernel_samsung_universal9611 && pwd && ls
       - name: Install toolchain
-        run: ./download_toolchain.sh
+        run: bash download_toolchain.sh
       - name: Build the kernel
-        run: ./build_kernel.sh aosp ksu
+        run: bash build_kernel.sh aosp ksu
       - uses: actions/upload-artifact@v3
         with:
               name: Kernel

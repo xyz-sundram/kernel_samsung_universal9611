@@ -1,18 +1,20 @@
 name: GrassKernel
 on: [push]
 jobs:
-  Explore-GitHub-Actions:
+  Build-A51-KSU:
     runs-on: ubuntu-latest
     steps:
       - name: Update the system
-        run: pwd && sudo apt update && sudo apt upgrade
+        run: sudo apt update
       - name: Install Dependencies
         run: sudo apt install -y bash git make libssl-dev curl bc pkg-config m4 libtool automake autoconf
+      - name: Clone the repo
+        run: git clone -b upstream https://github.com/Gojikovi/kernel_samsung_universal9611.git && cd kernel_samsung_universal9611
       - name: Install toolchain
         run: ./download_toolchain.sh
       - name: Build the kernel
         run: ./build_kernel.sh aosp ksu
       - uses: actions/upload-artifact@v3
         with:
-              name: my-artifact
+              name: Kernel
               path: $PWD/Kernel.zip

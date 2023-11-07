@@ -13,4 +13,5 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
               name: Kernel
+              run: cd kernel_samsung_universal9611
               path: $PWD/Kernel.zip

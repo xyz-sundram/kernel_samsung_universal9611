@@ -1,4 +1,4 @@
-#/bin/bash
+#/bin/bash run?
 set -e
 
 [ ! -e "scripts/packaging/pack.sh" ] && git submodule init && git submodule update

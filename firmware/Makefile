@@ -16,32 +16,24 @@ fw-external-$(CONFIG_EXYNOS9610_ACPM) += exynos9610_acpm_fvp.fw
 fw-external-$(CONFIG_EXYNOS9610_ACPM) += exynos9610_acpm_tmu.fw
 fw-external-$(CONFIG_TOUCHSCREEN_SYNAPTICS_I2C_DSX) += tsp_synaptics/synaptics_b0_h.fw
 fw-shipped-$(CONFIG_TOUCHSCREEN_SEC_TS) += tsp_sec/y761_dream1.fw
-fw-external-$(CONFIG_TOUCHSCREEN_MELFAS_MSS100) += tsp_melfas/mss100_a51.fw tsp_melfas/mss100_a51_old.fw \
-											tsp_melfas/mss100_m31.fw tsp_melfas/mss100_m21.fw tsp_melfas/mss100_m31s.fw
-fw-external-$(CONFIG_TOUCHSCREEN_NOVATEK_NT36672A) += tsp_novatek/nt36672a_xcoverpro.fw tsp_novatek/nt36672a_xcoverpro_4BF245.fw
-fw-external-$(CONFIG_TOUCHSCREEN_HIMAX_CHIPSET) += tsp_himax/hx83102e_gta4xl.fw tsp_himax/hx83102e_gta4xl_old.fw
-fw-external-$(CONFIG_EPEN_WACOM_W9019) += epen/wacom9019_gta4xl.fw
+fw-shipped-$(CONFIG_TOUCHSCREEN_IST40XX) += tsp_imagis/ist40xx_a7_2018.fw tsp_imagis/ist40xx_a7_2018_cmcs.bin
+fw-external-$(CONFIG_TOUCHSCREEN_MELFAS_MSS100) += tsp_melfas/mss100_a50.fw tsp_melfas/mss100_m30s.fw \
+							tsp_melfas/mss100_a50s.fw tsp_melfas/mss100_a51.fw
+fw-external-$(CONFIG_TOUCHSCREEN_IST40XX) += tsp_imagis/ist40xx_a80.bin tsp_imagis/ist40xx_a80_cmcs.bin
+
+fw-shipped-$(CONFIG_FIVE_TEE_DRIVER) += five/ffffffff000000000000000000000072.tlbin
 
 # Touch based grip sensor
 fw-external-$(CONFIG_SENSORS_A96T3X6) += abov/a96t326_voguelte.fw
 fw-external-$(CONFIG_SENSORS_TC3XXK) += coreriver/tc305k_a50ser.fw
 fw-external-$(CONFIG_SENSORS_A96T3X6_M30S) += abov/a96t326_m30s.fw
-fw-external-$(CONFIG_SENSORS_A96T3X6_A51) += abov/a96t356_a51.fw abov/a96t356_a51_sub.fw
-fw-external-$(CONFIG_SENSORS_A96T3X6_A51_USA) += abov/a96t356_a51_usa.fw abov/a96t356_a51_usa_sub.fw
-fw-external-$(CONFIG_SENSORS_A96T3X6_TABA4XL) += abov/a96t356_taba4xl.fw abov/a96t356_taba4xl_wifi.fw
-fw-external-$(CONFIG_SENSORS_A96T3X6_M31) += abov/a96t326_m31.fw
 
 # sensorhub
 fw-external-$(CONFIG_SENSORS_SSP) += sensorhub/shub_bl.fw
-fw-external-$(CONFIG_SENSORS_SSP_A51) += sensorhub/a51_bring_up.fw
+fw-external-$(CONFIG_SENSORS_SSP_A50) += sensorhub/shub_exynos9610_a50.fw
+fw-external-$(CONFIG_SENSORS_SSP_A50S) += sensorhub/shub_exynos9611_a50s.fw
+fw-external-$(CONFIG_SENSORS_SSP_M30S) += sensorhub/shub_exynos9611_m30s.fw
 fw-external-$(CONFIG_SENSORS_SSP_A51) += sensorhub/shub_exynos9611_a51.fw
-fw-external-$(CONFIG_SENSORS_SSP_XCOVERPRO) += sensorhub/shub_exynos9611_g715.fw
-fw-external-$(CONFIG_SENSORS_SSP_GTA4XL) += sensorhub/shub_exynos9611_gta4xl.fw
-fw-external-$(CONFIG_SENSORS_SSP_M31) += sensorhub/shub_ramen_m31.fw
-fw-external-$(CONFIG_SENSORS_SSP_M21) += sensorhub/shub_ramen_m21.fw
-fw-external-$(CONFIG_SENSORS_SSP_M31S) += sensorhub/shub_ramen_m31s.fw
-
-fw-shipped-$(CONFIG_FIVE_TEE_DRIVER) += five/ffffffff000000000000000000000072.tlbin
 
 quiet_cmd_ihex  = IHEX    $@
       cmd_ihex  = $(OBJCOPY) -Iihex -Obinary $< $@
@@ -63,7 +55,7 @@ quiet_cmd_fwbin = MK_FW   $@
 		  echo "    .section .rodata"				>>$@;\
 		  echo "    .p2align 4"					>>$@;\
 		  echo "_fw_$${FWSTR}_bin:"				>>$@;\
-		  echo "    .incbin \"$(srctree)/$(2)\""		>>$@;\
+		  echo "    .incbin \"$(2)\""				>>$@;\
 		  echo "_fw_end:"					>>$@;\
 		  echo "   .section .rodata.str,\"aMS\",$${PROGBITS},1"	>>$@;\
 		  echo "    .p2align $${ASM_ALIGN}"			>>$@;\
